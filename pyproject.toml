@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "gamp_manager"
+version = "0.1.0"
+description = "App to maintain the Grafana, AlertManager and Prometheus (GAMP) configurator and manager app, as my End-of-Degree Project (TFG)."
+authors = ["Arturo Vidal Peña <arturo.vidal.96@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^2.0.3"
+Flask-SQLAlchemy = "^2.5.1"
+flask-marshmallow = "^0.14.0"
+marshmallow-sqlalchemy = "^0.27.0"
+ansible = "^5.5.0"
+mysqlclient = "^2.1.0"
+SQLAlchemy = "^1.4.33"
+SQLAlchemy-Utils = "^0.38.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
