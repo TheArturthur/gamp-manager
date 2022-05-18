@@ -1,0 +1,12 @@
+prometheus prometheus
+prometheus alertmanager
+prometheus node_exporter
+prometheus blackbox_exporter
+prometheus snmp_exporter
+prometheus mysqld_exporter
+prometheus-community windows_exporter
+prometheus jmx_exporter
+grafana grafana
+iamseth oracledb_exporter
+Lusitaniae apache_exporter
+ncabatoff process-exporter
