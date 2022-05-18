@@ -1,0 +1,25 @@
+[
+  {
+        "targets": [
+          "a",
+      "las",
+      "patatas",
+      "no",
+      "se",
+      "les",
+      "echa",
+      "ketchup"
+        ],
+        "labels": {
+          "jobname": "Node Exporter TEST",
+          "PROJECT": "test",
+          "ENVIRONMENT": "TEST",
+          "HOST": "test1",
+          "PORT": "9100",
+          "MONITORING": "true",
+          "PROMETHEUS": "nonprod",
+          "EXPORTER": "node",
+          "ALERTING": "false"
+        }
+      }
+]
