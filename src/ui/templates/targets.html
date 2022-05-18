@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %} GAMP-Manager {% endblock %}
+{% block content %}
+<br />
+<form method="POST">
+    <div class="form-group">
+        <label for="project_name">Project:</label> <label style="color: crimson;">*</label>
+        <select class="form-control" id="list_project_name" name="list_project_name" onchange="checkProjectSelection()">
+            <option selected>Choose a project from the list</option>
+            {% for project in projects %}
+                <option id="selected_project_name" value="{{ project.Name }}">{{ project.Name }}</option>
+            {% endfor %}
+            <option id="new_project" value="new_project">My project is not listed. Add new project...</option>
+        </select>
+        <div id="new_project_box" style="display: none;">
+            <label for="project_name">Name of the new Project</label>
+        <input type="text" class="form-control" id="project_name" name="project_name"
+            placeholder="Enter the name of the new Project...">
+        <label for="project_dc">Datacenter</label>
+        <input type="text" class="form-control" id="project_dc" name="project_dc"
+            placeholder="Enter the Datacenter where the Project is being monitored...">
+        </div>
+        <div id="targets_table" style="display: none;">
+            <label for="targets_table" id="targets_table_caption"></label>
+            <table>
+                <caption></caption>
+                <tr>
+                    <th> Name </th>
+                    <th> OS </th>
+                    <th> Prometheus </th>
+                    <th> Environment </th>
+                    <th> Monitoring </th>
+                    <th> Alerting </th>
+                    <th> Port </th>
+                    <th> Exporter </th>
+                </tr>
+                {% for target in targets %}
+                    {% if target.project == selected_project_name %}
+                        <tr>
+                            <td> {{ target.Name }} </td>
+                            <td> {{ target.OS }} </td>
+                            <td> {{ target.Prometheus }} </td>
+                            <td> {{ target.Environment }} </td>
+                            <td> {{ target.Monitoring }} </td>
+                            <td> {{ target.Alerting }} </td>
+                            <td> {{ target.Port }} </td>
+                            <td> {{ target.Exporter }} </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="new_target_name" name="new_target_name"
+                        placeholder="New target name...">
+                    </td>
+                    <td>
+                        <select class="form-control" id="new_target_os" name="new_target_os">
+                            <option selected>Choose a OS type from the list</option>
+                            <option id="os_windows" value="Windows">Windows OS</option>
+                            <option id="os_linux" value="Linux">Linux/UNIX OS</option>
+                            <option id="os_mac" value="MacOS">MacOS</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" id="new_target_prometheus" name="new_target_prometheus">
+                            <option selected>Choose if it is a Production or Non-Production target:</option>
+                            <option id="prometheus_prod" value="prod">Prod</option>
+                            <option id="prometheus_nonprod" value="nonprod">Non-Prod</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="new_target_env" name="new_target_env"
+                        placeholder="Environment...">
+                    </td>
+                    <td>
+                        <select class="form-control" id="new_target_monitoring" name="new_target_monitoring">
+                            <option value="False" selected>Choose if the target should be monitored instantly:</option>
+                            <option id="monitoring_true" value="True">True</option>
+                            <option id="monitoring_false" value="False">False</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" id="new_target_alerting" name="new_target_alerting">
+                            <option value="False" selected>Choose if the target should be alerted instantly:</option>
+                            <option id="alerting_true" value="True">True</option>
+                            <option id="alerting_false" value="False">False</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="new_target_port" name="new_target_port"
+                        placeholder="Port...">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="new_target_exporter" name="new_target_exporter"
+                        placeholder="Exporter...">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <label style="font-size: small; color:crimson;">Fields marked with an asterisk (*) are required.</label>
+    <br />
+    <button id="submit_btn" type="submit" class="btn btn-primary">Add Target</button>
+</form>
+{% endblock %}
