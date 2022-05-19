@@ -1,4 +1,4 @@
-from ui import create_app
+from src.ui import create_app
 
 app = create_app()
 
