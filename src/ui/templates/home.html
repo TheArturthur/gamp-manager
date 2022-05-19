@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} GAMP-Manager {% endblock %}
+{% block content %}
+    {% if not missing %}
+        <br/>
+        <br/>
+        <br/>
+    {% endif %}
+    <br/>
+    <form method="POST">
+        <div class="form-group">
+            <label for="project_name">Project to search:</label> <label style="color: crimson;">*</label>
+            <input type="text" class="form-control" id="project_name" name="project_name"
+                   placeholder="Enter the name of the Project to search...">
+            <label for="target_name">Host to search (blank to get whole project hosts):</label>
+            <input type="text" class="form-control" id="target_name" name="target_name"
+                   placeholder="Enter the name or IP address of the Host you want to search, if any...">
+        </div>
+        <label style="font-size: small; color:crimson;">Fields marked with an asterisk (*) are required.</label>
+        <br/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    {% if missing %}
+        <div class="container">
+            <img src="https://http.cat/404" alt="404 Not Found" class="mx-auto d-block" style="width: 40%;">
+        </div>
+    {% elif project %}
+        {% print(project.Name) %}
+        {% if targets %}
+            {% for target in targets %}
+                {% print(target.Name) %}
+            {% endfor %}
+        {% else %}
+            <p>No hosts found for this project.</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
