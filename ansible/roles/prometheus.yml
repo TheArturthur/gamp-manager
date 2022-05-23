@@ -1,0 +1,20 @@
+---
+- name: Docker playbook
+  hosts: localhost
+  tasks:
+    - name: Create prometheus container if not exists or restart previous one
+      community.docker.docker_container:
+        name: prometheus
+        image: "ubuntu/prometheus:latest"
+        state: started
+        restart: yes
+        volumes:
+          - ~/git/gamp-manager/src/prometheus/prometheus-server:/etc/prometheus
+        networks:
+          - host
+        ports: "9090:9090"
+        tty: yes
+      tags:
+        - prometheus
+        - docker
+        - containers
