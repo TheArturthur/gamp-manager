@@ -1,6 +1,7 @@
 from re import match
 from sys import platform
 
+from dotenv import dotenv_values
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -18,7 +19,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = generate_database_url()
-    app.config['SECRET_KEY'] = 'hvfalkjhvkjfalhgakjfbhvjfalknhvlkjfa'
+    app.config['SECRET_KEY'] = dotenv_values('secrets/.env')['APP_SECRET_KEY']
     db.init_app(app)
 
     from .views import views
@@ -33,12 +34,6 @@ def create_app():
     else:
         print("Database was not created because it already exists")
     return app
-
-
-class DatabaseGenerationException(Exception):
-    """
-    Exception to raise if there's an error while creating the database
-    """
 
 
 def generate_database_url() -> str:
