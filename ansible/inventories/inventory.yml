@@ -1,21 +1,11 @@
 all:
-#  hosts:
+  #  hosts:
   children:
     node_exporter:
       hosts:
-        20.228.200.113
-    wmi_exporter:
-      hosts:
-        0.0.0.0:
-    process_exporter:
-      hosts:
-        0.0.0.0:
-    mtail_exporter:
-      hosts:
-        0.0.0.0:
-    ansible_test:
-      hosts: 
-        0.0.0.0:
-    vars:
-      ansible_user: avidal
-      ansible_ssh_private_key_file: '/home/avidal/.ssh/avidal.pem'
+        192.168.1.4[5:7]
+      vars:
+        ansible_ssh_user: vagrant
+        ansible_ssh_password: 'vagrant'
+        ansible_ssh_private_key_file: '~/.ssh/id_ed25519'
+        ansible_python_interpreter: /usr/bin/python3

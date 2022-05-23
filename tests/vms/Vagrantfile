@@ -1,0 +1,26 @@
+Vagrant.configure("2") do |config|
+    (1..3).each do |i|
+        config.vm.define "ne-test-#{i}" do |node|
+            node.vm.box = "hashicorp/bionic64"
+            node.vm.hostname = "ne-test-#{i}"
+            node.vm.network "public_network"
+            node.vm.provider "virtualbox" do |v|
+                v.name = "ne-test-#{i}"
+                v.memory = 512
+            end
+            node.vm.provision "shell" do |s|
+            ssh_pub_key = File.readlines("~/.ssh/id_ed25519.pub").first.strip
+            s.inline = <<-SHELL
+                echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+                echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+                apt-get update
+                apt-get install -y git
+                apt-get install -y build-essential
+                apt-get install -y net-tools
+                apt-get install -y python3
+                hostname -I
+            SHELL
+            end
+        end
+    end
+end
