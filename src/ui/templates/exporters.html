@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %} Exporters{% endblock %}
 {% block content %}
-<p> This is the list of known exporters in the database:</p>
-<p>
+    <p> This is the list of known exporters in the database:</p>
+    <p>
     <table>
         <caption></caption>
         <tr>
-            <th> Name </th>
-            <th> URL </th>
+            <th> Name</th>
+            <th> URL</th>
             <th> Latest version available</th>
         </tr>
         {% for exporter in exporters %}
@@ -18,20 +18,20 @@
             </tr>
         {% endfor %}
     </table>
-</p>
+    </p>
 
-<p>Do you want to add a new Exporter?</p>
-<form method="POST">
-    <h3>Add a new Exporter</h3>
-    <div class="form-group">
-        <label for="exporter_name">Name of the Exporter</label>
-        <input type="text" class="form-control" id="exporter_name" name="exporter_name"
-            placeholder="Enter the name of the Exporter">
-        <label for="exporter_url">URL of the Exporter</label>
-        <input type="text" class="form-control" id="exporter_url" name="exporter_url"
-            placeholder="Enter the URL of the Exporter GitHub home page">
-    </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Add Exporter</button>
-</form>
+    <p>Do you want to add a new Exporter?</p>
+    <form method="POST">
+        <h3>Add a new Exporter</h3>
+        <div class="form-group">
+            <label for="exporter_name">Name of the Exporter</label>
+            <input type="text" class="form-control" id="exporter_name" name="exporter_name"
+                   placeholder="Enter the name of the Exporter">
+            <label for="exporter_url">URL of the Exporter</label>
+            <input type="text" class="form-control" id="exporter_url" name="exporter_url"
+                   placeholder="Enter the URL of the Exporter GitHub home page">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Add Exporter</button>
+    </form>
 {% endblock %}

@@ -9,13 +9,13 @@ function checkProjectSelection() {
         document.getElementById("submit_btn").innerHTML = "Add Target";
         document.getElementById("targets_table").style.display = "contents";
         document.getElementById("targets_table_caption").innerHTML = targets_table_caption + document.getElementById("selected_project_name").value + ":";
-        
+
         let selected_project = document.getElementById("selected_project").value;
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
+        xhttp.onload = function () {
             document.getElementById("txtHint").innerHTML = this.responseText;
         }
-        xhttp.open("GET", "targets.html?selected_project="+selected_project);
+        xhttp.open("GET", "targets.html?selected_project=" + selected_project);
         xhttp.send();
     }
 }

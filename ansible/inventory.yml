@@ -1,5 +1,5 @@
 all:
-#  hosts:
+  #  hosts:
   children:
     node_exporter:
       hosts:
@@ -14,7 +14,7 @@ all:
       hosts:
         0.0.0.0:
     ansible_test:
-      hosts: 
+      hosts:
         0.0.0.0:
     vars:
       ansible_user: avidal
