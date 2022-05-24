@@ -1,6 +1,3 @@
-from re import match
-from sys import platform
-
 from dotenv import dotenv_values
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -18,7 +15,7 @@ DB_NAME = "gamp-manager"
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = generate_database_url()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////app/src/backend/gamp-manager.db'
     app.config['SECRET_KEY'] = dotenv_values('secrets/.env')['APP_SECRET_KEY']
     db.init_app(app)
 
@@ -34,13 +31,3 @@ def create_app():
     else:
         print("Database was not created because it already exists")
     return app
-
-
-def generate_database_url() -> str:
-    url = 'sqlite:///{}gamp-manager.db'
-    if match(r'linux2?', platform):  # accepts linux and linux2
-        return url.format('/home/avidal/git/gamp-manager/src/backend/')
-    elif platform == "darwin":
-        return url.format('/Users/avidal/git/gamp-manager/src/backend/')
-    elif platform == "win32":
-        return url.format('C:\\Users\\Arturo Vidal\\Documents\\')
