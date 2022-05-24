@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  prometheus:
+    image: "ubuntu/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./src/prometheus/prometheus-server:/etc/prometheus
+  app:
+    image: thearturthur/gamp-manager
+    ports:
+      - "5000:5000"
+    volumes:
+      - "C:\\Users\\Arturo Vidal\\git\\gamp-manager\\:/app"
+    command: [ "python3.10", "app.py" ]

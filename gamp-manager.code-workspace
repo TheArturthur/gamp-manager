@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Library/CloudStorage/OneDrive-UniversidadPolitécnicadeMadrid/Estudios/Semestre 8/TFG",
+			"name": "Memoria Mac"
+		},
+		{
+			"path": "../../c_folder/Users/Arturo Vidal/OneDrive - Universidad Politécnica de Madrid/Estudios/Semestre 8/TFG/",
+			"name": "Memoria Windows"
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default"
+				},
+				"previewLimit": 50,
+				"server": "raspi4",
+				"port": 3306,
+				"driver": "MariaDB",
+				"name": "Gamp-manager",
+				"database": "gamp-manager",
+				"username": "avidal"
+			}
+		],
+		"latex-workshop.latex.autoClean.run": "onBuilt",
+		"latex-workshop.latex.outDir": "%DIR%/build",
+		"latex-workshop.latex.bibDirs": [
+			"%DIR%/bibliography"
+		]
+	}
+}

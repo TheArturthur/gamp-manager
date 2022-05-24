@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} Exporters{% endblock %}
+{% block content %}
+    <form method="POST">
+        <h3>Add a new Project</h3>
+        <div class="form-group">
+            <label for="project_name">Name of the new Project</label>
+            <input type="text" class="form-control" id="project_name" name="project_name"
+                   placeholder="Enter the name of the new Project...">
+            <label for="project_dc">Datacenter</label>
+            <input type="text" class="form-control" id="project_dc" name="project_dc"
+                   placeholder="Enter the Datacenter where the Project is being monitored...">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Configure new Project</button>
+    </form>
+{% endblock %}

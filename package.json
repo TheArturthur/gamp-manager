@@ -12,7 +12,9 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "resolutions": {"glob-parent": "^6.0.1"},
+  "resolutions": {
+    "glob-parent": "^6.0.1"
+  },
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.8.3",
