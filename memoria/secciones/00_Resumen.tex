@@ -1,6 +1,15 @@
 \chapter*{Resumen}
 
-<<Aquí va el resumen del TFG. Extensión máxima 2 páginas.>>
+A la hora de añadir un \textit{target} a la configuración de la monitorización con Prometheus, se debe añadir una nueva entrada en el fichero \url{prometheus.yml}, según el siguiente formato:
+
+\begin{lstlisting}[language=Yaml,frame=single,caption=prometheus.yml]
+---
+- job_name: <nombre_del_proyecto>
+  static_configs:
+  - targets:
+    - <ip_o_nombre_del_target>
+\end{lstlisting}
+
 
 %%--------------
 \newpage
