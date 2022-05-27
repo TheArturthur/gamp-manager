@@ -9,7 +9,7 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-#          - alertmanager:9093
+          - alertmanager:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
@@ -29,4 +29,7 @@ scrape_configs:
       - targets: [ "localhost:9090" ]
   - job_name: "node"
     static_configs:
-      - targets: [ "172.1.1.3:9100" ]
+      - targets: [ "gamp-manager-app-1:9100" ]
+  - job_name: "wmi"
+    static_configs:
+      - targets: [ "host.docker.internal:9182" ]
