@@ -1,25 +1,28 @@
 \chapter*{Resumen}
 
-A la hora de añadir un \textit{target} a la configuración de la monitorización con Prometheus, se debe añadir una nueva entrada en el fichero \url{prometheus.yml}, según el siguiente formato:
+A la hora de añadir un \textit{target} a la monitorización \textit{onpremise} con Prometheus, se puede hacer de dos formas distintas:
 
-\begin{lstlisting}[language=Yaml,frame=single,caption=prometheus.yml]
----
-- job_name: <nombre_del_proyecto>
-  static_configs:
-  - targets:
-    - <ip_o_nombre_del_target>
-\end{lstlisting}
+\begin{itemize}
+  \item De manera estática, indicando en un mismo de configuración todos los \textit{targets} de cada proyecto, con las distintas variaciones de etiquetas de cada uno.
+  \item De manera dinámica, separando los distintos proyectos en ficheros \url{JSON}, que contienen la lista de \textit{targets} de cada uno.
+\end{itemize}
 
+Sin embargo, ambas configuraciones siguen requiriendo una inversión de tiempo bastante grande, ya que se debe añadir manualmente cada uno de los targets a la configuración de Prometheus.
 
-%%--------------
-\newpage
-%%--------------
+Este proyecto busca solventar esto, usando una aplicación externa, que automáticamente genere los ficheros JSON necesarios y añada los nuevos targets a la configuración de Prometheus.
 
-\chapter*{Abstract}
-
-<<Abstract of the Final Degree Project. Maximum length: 2 pages.>>
-
+\paragraph*{Palabras clave:} prometheus, configuración
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Final del resumen. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%--------------
+\newpage
+%%--------------
+    
+\chapter*{Abstract}
+\todo[inline]{Traducir resumen a inglés}
+
+
+\paragraph*{Keywords:} prometheus, configuration

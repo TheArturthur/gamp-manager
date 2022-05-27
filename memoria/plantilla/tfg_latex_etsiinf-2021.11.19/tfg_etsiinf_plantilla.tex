@@ -1,0 +1,132 @@
+%%***********************************************
+%% Plantilla para TFG.
+%% Escuela Técnica Superior de Ingenieros Informáticos. UPM.
+%%***********************************************
+\documentclass[a4paper,11pt]{book}
+
+%%-----------------------------------------------
+%% Importar Preámbulo:
+\input{include/preambulo}
+
+%% -----------------------------------------------
+%% Cargar datos relativos al TFG:
+%% (actualizar estos datos en ./datos_tfg.tex)
+\input{datos_tfg}
+
+%% -----------------------------------------------
+%% Importación de otros paquetes de LaTeX a usar en el desarrollo del TFG:
+%% (veanse algunos ejemplos como listings (para incluir código), todonotes (para poner anotaciones al margen con cosas por hacer), etc.
+%%-----------------------------------------------
+\usepackage{color}
+
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\usepackage{listings}
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\scriptsize\ttfamily,
+     commentstyle=\color{gray45},
+     keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=6pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+   }
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+    }
+
+\lstdefinestyle{CodigoC}
+   {basicstyle=\scriptsize,
+	frame=single,
+	language=C,
+	numbers=left
+   }
+
+\lstdefinestyle{CodigoC++}
+   {basicstyle=\small,
+	frame=single,
+	backgroundcolor=\color{gray75},
+	language=C++,
+	numbers=left
+   }
+
+\lstdefinestyle{Python}
+   {language=Python,
+   }
+
+
+\usepackage[textwidth=2.5cm, textsize=smaller]{todonotes}
+\setlength{\marginparwidth}{2.5cm}
+
+\usepackage{lipsum}
+
+\usepackage{relsize}
+
+%%-----------------------------------------------
+%% Documento:
+\begin{document}
+\input{include/portada}
+
+%%-----------------------------------------------
+%% Numeración romana:
+\frontmatter
+%%-----------------------------------------------
+\input{secciones/resumen}
+\tableofcontents
+
+%%-----------------------------------------------
+%% Numeración arábiga:
+\mainmatter
+
+%%-----------------------------------------------
+%% Contenido del TFG
+\input{secciones/intro}
+
+\input{secciones/desarrollo}
+
+\input{secciones/resultados}
+
+\input{secciones/impacto}
+
+%%-----------------------------------------------
+%% Bibliografía
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliografía}
+\bibliographystyle{IEEEtran}
+\bibliography{secciones/biblio}
+
+%% -----------------------------------------------
+%% Anexos
+\appendix
+\part*{Anexos}
+\addcontentsline{toc}{chapter}{Anexos}
+\input{secciones/anexo1}
+
+%% ---------------------------------------------------------
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
