@@ -1,20 +1,40 @@
 \chapter{Desarrollo}
-Capítulo dedicado a describir el desarrollo del Trabajo realizado. De acuerdo con el tutor, este capítulo puede tener distintas estructuras, e incluso pueden existir varios capítulos.
+\label{ch:desarrollo}
+\todo{Intro al desarrollo}
 
-Todos los capítulos deben empezar en una página nueva.
+\section{Base de datos}
+\input{secciones/desarrollo/base_de_datos}
 
-Los apartados dentro de los capítulos se numeran de forma jerárquica, pero siempre deben estar alineados al margen izquierdo. Ejemplo:
+\newpage
+\section{Frontend}
+\subsection{ElectronJS}
+\input{secciones/desarrollo/electron}
 
-\section{Apartado 1 de capítulo 2}
+\subsection[GUI]{Graphical User Interface}
+\input{secciones/desarrollo/frontend_gui}
 
-\subsection{Sección 1 de apartado 1 de capítulo 2}
+\newpage
+\section{Backend}
+Al realizar operaciones en la GUI explicada anteriormente, se realizarán llamadas a un backend en Python, que se encargará de la gestión de la base de datos, la ejecución de los playbooks de Ansible y la configuración de los targets.
+\subsection{Docker}
+\input{secciones/desarrollo/docker}
 
-\subsubsection{Sub sección 1}
+\subsection{User Interface}
+\input{secciones/desarrollo/backend_ui}
 
-\subsubsection{Sub sección 2}
+\subsection{Ansible}
+\input{secciones/desarrollo/ansible}
 
-\subsection{Sección 2 de apartado 1 de capítulo 2}
+\subsection{Exporter}
+\input{secciones/desarrollo/exporter}
 
-\section{Apartado 2 de capítulo 2}
+\newpage
+\section{Testing}
+\subsection{Virtual Machines}
+\input{secciones/desarrollo/vm}
 
-\section{Apartado 3 de capítulo 2}
+\subsection{Pylint}
+\input{secciones/desarrollo/pylint}
+
+\subsection{Pynguin}
+\input{secciones/desarrollo/pynguin}

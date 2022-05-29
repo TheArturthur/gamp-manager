@@ -1,0 +1,50 @@
+\begin{figure}[h]
+    
+    \begin{flushleft}
+        
+        \begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+            
+            % RELATIONS
+            
+        \node (projectstitle) {\textbf{Projects}};
+        
+        \node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of projectstitle.west, anchor=west] (projects)
+        {\underline{IdProject}%
+        \nodepart{two}   Name
+        \nodepart{three} Datacenter};
+        
+        \node [below=1.3cm of projects.west, anchor=west] (targets) {\textbf{Targets}};
+        
+        \node [relation=8, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.6cm of targets.west, anchor=west] (target)
+        {\underline{ID}%
+        \nodepart{two} Name
+        \nodepart{three} OS
+        \nodepart{four}  Prometheus
+        \nodepart{five}  Environment
+        \nodepart{six}  Monitoring
+        \nodepart{seven}  Alerting
+        \nodepart{eight}  Port};
+
+        \node [relation=2, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.69cm of target.west, anchor=west] (target_fk)
+        {\underline{Exporter\_id}
+        \nodepart{two} \underline{Project\_id}};
+        
+        \node [below=1.1cm of target_fk.west, anchor=west] (exporters) {\textbf{Exporters}};
+        
+        \node [relation=4, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of exporters.west, anchor=west] (exporter)
+        {\underline{IdExporter}%
+        \nodepart{two}   Name
+        \nodepart{three} URL
+        \nodepart{four}  Latest\_version};
+        
+        % FOREIGN KEYS
+        
+        \draw[-latex] (target_fk.two south) -- ++(0,-0.2) -| ($(target_fk.two south) + (10.3,0)$) |- ($(projects.one south) + (0.25,-0.50)$) -| ($(projects.one south) + (0.25,0)$);
+        
+        \draw[-latex] (target_fk.one south) -- ++(0,-0.4) -| ($(target_fk.one south) + (7,-0.4)$) |- ($(exporter.one south) + (0.25,-0.50)$) -| ($(exporter.one south) + (0.25,0)$);
+        
+    \end{tikzpicture}
+\end{flushleft}
+\caption{Diagrama relacional de la Base de Datos utilizada}
+\label{fig:diagrama_db}
+\end{figure}

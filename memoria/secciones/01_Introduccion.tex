@@ -1,46 +1,21 @@
 \chapter{Introducción}
 \label{ch:intro}
-\todo{rellenar adecuadamente}
-A la hora de añadir un \textit{target} a la configuración de la monitorización con Prometheus, se debe añadir una nueva entrada en el fichero \url{prometheus.yml}, según el siguiente formato(\ref{fig:prometheus.yml}):
+\section*{Prometheus}
+Prometheus\cite{prometheus} es una herramienta open-source para monitorizar sistemas. Esto lo consigue mediante el uso de agentes exportadores de métricas (\textit{exporters}), instalados en las máquinas objetivo (\textit{targets}), que recogen y publican los datos de las mismas.
 
-\begin{lstlisting}[language=Yaml,frame=single,caption={Configuración estática de prometheus.yml:},label={fig:prometheus.yml}]
-  ---
-  - job: prometheus
-  static_configs:
-  - targets:
-    - "localhost:9090"
-    labels:
-      jobname: prometheus
-      monitoring: true
-      alerting: true
-  \end{lstlisting}
+\section*{Alertmanager}
+Alertmanager\cite{alertmanager} maneja las alertas enviadas por prometheus. Se encarga de eliminar duplicados, agrupar y distribuir las alertas a los servicios configurados. Es capaz de crear silencios e inhibiciones entre alertas.
 
-Aunque una buena modificación consiste en usar descubrimiento dinámico de ficheros (\textit{File System Discovery}) para obtener la lista de targets de manera dinámica, esto sigue implicando una enorme inversión de tiempo en especificar manualmente los targets.
+\section*{Grafana}
+Grafana\cite{grafana} es una herramienta utilizada para crear \textit{dashboards} y paneles en los que tener una representación más visual de los datos recogidos por, en este caso, Prometheus.
 
-Este proyecto busca solventar esto, usando una aplicación externa, que automáticamente genere los ficheros JSON necesarios y añada los nuevos targets a la configuración de Prometheus.
-\begin{lstlisting}[language=yaml,frame=single,caption={Usando file\_sd\_configs:}]
-  ---
-  - job: prometheus
-  file_sd_configs:
-  - files:
-    - "targets/*.json"
-    refresh_interval: 2m
-  relabel_configs:
-  - source_labels: [jobname]
-    regex: 'prometheus'
-    action: keep
-  \end{lstlisting}
-  \begin{lstlisting}[language=json,frame=single,caption={Especificación de targets en JSON:}]
-    [
-      {
-        "targets": [
-          "localhost:9090"
-        ],
-        "labels": {
-          "jobname": "prometheus",
-          "monitoring": "true",
-          "alerting": "true"
-        }
-      }
-    ]
-    \end{lstlisting}
+\section{Estado del arte}
+A la hora de añadir un \textit{target} a la configuración de la monitorización con Prometheus, se debe añadir una nueva entrada en el fichero \url{prometheus.yml}, según el siguiente formato:
+
+\input{include/intro/static_prometheus.yml.tex}
+
+Una buena modificación consiste en usar descubrimiento dinámico de ficheros (\textit{File System Discovery}) para obtener la lista de targets de manera dinámica:
+
+\input{include/intro/dynamic_prometheus.yml.tex}
+
+Sin embargo, esto sigue requiriendo una enorme cantidad de tiempo, especialmente con proyectos de larga envergadura, al seguir teniendo que generar los ficheros de manera manual. Es por eso que surge la idea de esta aplicación, que genere dichos ficheros y configuraciones de manera automática, con mayor rapidez y menor número de posibles errores.

@@ -1,17 +1,18 @@
 \chapter*{Resumen}
+\label{ch:resumen}
 
 A la hora de añadir un \textit{target} a la monitorización \textit{onpremise} con Prometheus, se puede hacer de dos formas distintas:
 
 \begin{itemize}
-  \item De manera estática, indicando en un mismo de configuración todos los \textit{targets} de cada proyecto, con las distintas variaciones de etiquetas de cada uno.
+  \item De manera estática, indicando en un mismo fichero de configuración todos los \textit{targets} de cada proyecto, con las distintas variaciones de etiquetas de cada uno.
   \item De manera dinámica, separando los distintos proyectos en ficheros \url{JSON}, que contienen la lista de \textit{targets} de cada uno.
 \end{itemize}
 
 Sin embargo, ambas configuraciones siguen requiriendo una inversión de tiempo bastante grande, ya que se debe añadir manualmente cada uno de los targets a la configuración de Prometheus.
 
-Este proyecto busca solventar esto, usando una aplicación externa, que automáticamente genere los ficheros JSON necesarios y añada los nuevos targets a la configuración de Prometheus.
+Este proyecto busca solventar esto, usando una aplicación externa, que, según se especifique, genere automáticamente los ficheros JSON necesarios y añada los nuevos targets a la configuración de Prometheus.
 
-\paragraph*{Palabras clave:} prometheus, configuración
+\paragraph*{Palabras clave:} prometheus, configuración, automatización
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Final del resumen. 
@@ -22,7 +23,8 @@ Este proyecto busca solventar esto, usando una aplicación externa, que automát
 %%--------------
     
 \chapter*{Abstract}
-\todo[inline]{Traducir resumen a inglés}
+\label{ch:abstract}
+\todo{Traducir \nameref{ch:resumen} a inglés}
 
 
-\paragraph*{Keywords:} prometheus, configuration
+\paragraph*{Keywords:} prometheus, configuration, automation

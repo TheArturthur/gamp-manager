@@ -1,0 +1,29 @@
+\begin{multicols}{2}
+    \begin{lstlisting}[language=yaml,frame=single,caption={Usando file\_sd\_configs:},label={lst:file_sd_prom.yml}]
+    ---
+    - job: prometheus
+    file_sd_configs:
+    - files:
+      - "targets/*.json"
+      refresh_interval: 2m
+    relabel_configs:
+    - source_labels: [jobname]
+      regex: 'prometheus'
+      action: keep
+    \end{lstlisting}
+    \columnbreak
+    \begin{lstlisting}[language=json,frame=single,caption={Especificación de targets en JSON:},label={lst:targets.json}]
+      [
+        {
+          "targets": [
+            "localhost:9090"
+          ],
+          "labels": {
+            "jobname": "prometheus",
+            "monitoring": "true",
+            "alerting": "true"
+          }
+        }
+      ]
+      \end{lstlisting}
+    \end{multicols}
