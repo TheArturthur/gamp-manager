@@ -24,7 +24,14 @@ Este proyecto busca solventar esto, usando una aplicación externa, que, según 
     
 \chapter*{Abstract}
 \label{ch:abstract}
-\todo{Traducir \nameref{ch:resumen} a inglés}
+When adding a target to an on-premise Prometheus monitoring configuration, it can be done in two ways:
+\begin{itemize}
+  \item Statically, specifying all the targets in a single configuration file, with different variations of tags for each one.
+  \item Dynamically, separating the different projects in \url{JSON} files, which contain the list of targets for each one.
+\end{itemize}
 
+However, both configurations require a large investment of time, because it is necessary to manually add each one of the targets to the Prometheus configuration.
+
+This projects aims to solve this by using an external application, which, depending on how it is specified, will generate automatically the \url{JSON} files needed and add the new targets to the Prometheus configuration.
 
 \paragraph*{Keywords:} prometheus, configuration, automation
