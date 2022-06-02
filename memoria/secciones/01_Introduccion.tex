@@ -9,6 +9,9 @@ Prometheus\cite{prometheus} es una herramienta open-source para monitorizar sist
 
 Estos datos, vienen en la forma de métricas: vectores de dimensión variable, en función de las etiquetas asociadas, y con un valor numérico.
 
+\subsection*{Target}
+En este proyecto, un \textit{target} se entiende como un par \textit{$<host:puerto>$}, donde \textit{$host$} es el nombre de una máquina que se desea monitorizar, y el $puerto$ indica el puerto de red de la máquina en el que se encuentran las métricas publicadas por los \textit{exporters}.
+
 \subsection*{Alertmanager}
 Alertmanager\cite{alertmanager} maneja las alertas enviadas por prometheus. Se encarga de eliminar duplicados, agrupar y distribuir las alertas a los servicios configurados. Es capaz de crear silencios e inhibiciones entre alertas.
 
@@ -31,11 +34,11 @@ Esto es eficiente únicamente cuando se desean tener monitorizaciones estáticas
 
 Algo similar ocurre tanto con Alertmanager como con Grafana, puesto que en cada modificación de los ficheros \url{alertmanager.yml} y \url{grafana.ini} respectivamente, es necesario reiniciar el servicio.
 
-Una buena alternativa presente actualmente únicamente en Prometheus consiste en usar descubrimiento dinámico de ficheros (\textit{File System Discovery}) para obtener la lista de targets de manera dinámica:
+Una buena alternativa presente actualmente únicamente en Prometheus consiste en usar descubrimiento dinámico de ficheros (\textit{File System Discovery}) para obtener la lista de	\textit{targets} de manera dinámica:
 
 \input{include/intro/dynamic_prometheus.yml.tex}
 
-Esto nos permite poder añadir los \textit{targets} en un fichero \url{JSON} separado, sin tener que modificar el fichero \url{prometheus.yml} en cada actualización, con el subsiguiente reinicio del servicio Prometheus. Así, especificando el tiempo que tardará Prometheus en reinspeccionar los distintos ficheros \url{JSON} que se indiquen (en el ejemplo superior, dos minutos), podremos añadir, modificar o eliminar targets sin tener que reiniciar el servicio cada vez.
+Esto nos permite poder añadir los \textit{targets} en un fichero \url{JSON} separado, sin tener que modificar el fichero \url{prometheus.yml} en cada actualización, con el subsiguiente reinicio del servicio Prometheus. Así, especificando el tiempo que tardará Prometheus en reinspeccionar los distintos ficheros \url{JSON} que se indiquen (en el ejemplo superior, dos minutos), podremos añadir, modificar o eliminar	\textit{targets} sin tener que reiniciar el servicio cada vez.
 
 Sin embargo, esto sigue requiriendo una enorme cantidad de tiempo, especialmente con proyectos de larga envergadura, al seguir teniendo que generar los ficheros de manera manual. Es por eso que surge la idea de esta aplicación, que genere dichos ficheros y configuraciones de manera automática a partir de los datos introducidos por el usuario, con mayor rapidez y menor número de errores posibles, y que reinicia el servicio de los servicios si fuera necesario porque se haya modificado el fichero de configuración correspondiente.
 
