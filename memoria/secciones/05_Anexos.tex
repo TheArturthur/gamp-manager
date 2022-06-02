@@ -1,7 +1,59 @@
 \chapter*{Anexo}
-\section*{Base de datos}
-\input{include/desarrollo/diagrama_db}
 
-\newpage
+\section*{Prometheus}
+\label{sec:appendix_prometheus}
+\input{include/intro/standar_alerts.yml.tex}
+
+\section*{Diagrama UML de la aplicación}
+\label{sec:appendix_uml}
+%\input{include/desarrollo/uml.tex}
+\begin{center}
+    \begin{figure}[h]
+        \includegraphics[width=0.9\textwidth]{include/desarrollo/src.png}
+        \caption{Diagrama UML del backend}
+        \label{fig:uml}
+    \end{figure}
+\end{center}
+
 \section*{Ansible}
+\label{sec:appendix_ansible}
 \input{include/desarrollo/ansible_playbook}
+
+\section*{Interfaz Gráfica}
+\label{sec:appendix_gui}
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/home.png}
+    \caption{Página principal de selección de proyectos}
+    \label{fig:gui_home}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/project_not_found.png}
+    \caption{Proyecto no encontrado en la base de datos}
+    \label{fig:gui_project_not_found}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/create_project.png}
+    \caption{Creación de un proyecto nuevo}
+    \label{fig:gui_create_project}
+\end{figure}
+
+\begin{figure}[H]
+    \setbox1=\hbox{\includegraphics[width=\textwidth]{include/desarrollo/app_images/add_target_choose_project.png}}
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/add_target_choose_project.png}\llap{\makebox[\wd1][c]{\raisebox{5.85cm}{\shifttext{-2.5cm}{\includegraphics[width=0.6\textwidth]{include/desarrollo/app_images/project_list.png}}}}}
+    \caption{Elección de proyecto para añadir	\textit{targets}}
+    \label{fig:gui_add_target_choose_project}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/add_target_project_not_listed.png}
+    \caption{Creación de un nuevo proyecto al intentar añadir	\textit{targets}}
+    \label{fig:gui_add_target_project_not_listed}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{include/desarrollo/app_images/add_target_test.png}
+    \caption{Creación de un target en un proyecto existente}
+    \label{fig:gui_add_target_test}
+\end{figure}
