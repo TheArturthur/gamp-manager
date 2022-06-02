@@ -17,10 +17,10 @@ Los contenedores\cite{docker_container} son instancias ejecutables de una imagen
 
 Para este proyecto se han creado cuatro contenedores en Docker:
 \begin{itemize}
-    \item Uno para funcionar como servidor de Prometheus, que recogerá las métricas de los targets que se usen en la fase de pruebas.
+    \item Uno para funcionar como servidor de Prometheus, que recogerá las métricas de los	\textit{targets} que se usen en la fase de pruebas.
     \item Uno para funcionar como Alertmanager, para configurar avisos y silencios que se requieran y comprobar que las alertas se configuran correctamente mediante la aplicación.
     \item Un tercero, con Grafana, para comprobar los datos recogidos de manera más visual que usando la interfaz propia de Prometheus.
     \item El último, con la aplicación, que la ejecutará y nos permitirá introducir los datos necesarios para cada configuración.
 \end{itemize}
 
-De esta forma, reducimos las posibilidades de error por encontrarnos en distintas máquinas, y nos abastecemos de una infraestructura básica con la que simular un entorno productivo.
+Estos contenedores tienen montados los directorios de la aplicación que necesita cada uno para funcionar, de forma que simulan un entorno de ejecución. De esta forma, reducimos las posibilidades de error por encontrarnos en distintas máquinas, y nos abastecemos de una infraestructura básica con la que simular un entorno productivo.

@@ -2,32 +2,40 @@
 \label{ch:desarrollo}
 En este capítulo vamos a observar los distintos componentes de los que se forma la aplicación. 
 \section{Base de datos}
+\label{sec:database}
 \input{secciones/desarrollo/base_de_datos}
 
 % \newpage
 \section{Frontend}
+\label{sec:frontend}
 Para desarrollar la interfaz (GUI) sobre la cual el usuario interactúa con el programa, se utilizó el framework ElectronJS\cite{ElectronJS}. 
 
 \subsection{ElectronJS}
+\label{sec:electron}
 \input{secciones/desarrollo/electron}
 
-% \subsection{Interfaz Gráfica}
-% \input{secciones/desarrollo/frontend_gui}
+\subsection{Interfaz Gráfica}
+\label{sec:gui}
+\input{secciones/desarrollo/frontend_gui}
 
-% \newpage
 \section{Backend}
-Al realizar operaciones en la GUI explicada anteriormente, se realizarán llamadas a un backend en Python, que se encargará de la gestión de la base de datos, la ejecución de los playbooks de Ansible y la configuración de los targets.
+\label{sec:backend}
+Al realizar operaciones en la GUI explicada anteriormente, se realizarán llamadas a un backend en Python, que se encargará de la gestión de la base de datos, la ejecución de los playbooks de Ansible y la configuración de los	\textit{targets}.
 \subsection{Docker}
+\label{sec:docker}
 \input{secciones/desarrollo/docker}
 
-\subsection{User Interface}
-% \input{secciones/desarrollo/backend_ui}
-
 \subsection{Ansible}
+\label{sec:ansible}
 \input{secciones/desarrollo/ansible}
 
 \subsection{Exporter}
+\label{sec:exporter}
 \input{secciones/desarrollo/exporter}
+
+\subsection{Backend con Python}
+\label{sec:python}
+\input{secciones/desarrollo/backend}
 
 % \newpage
 % \section{Testing}
