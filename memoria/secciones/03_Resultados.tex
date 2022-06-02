@@ -5,3 +5,11 @@ Con esta nueva aplicación, consideramos que se solventa en gran medida el probl
 Del trabajo extraemos el saber que es una herramienta con gran potencial para la monitorización con Prometheus, puesto que permite ahorrar tiempo en la configuración, dejando espacio para otros proyectos y avances que requieran de una mayor dedicación.
 
 De igual forma, opinamos que es una herramienta con alto potencial de crecimiento, pudiendo abarcar una amplia gama de agentes que instalar y configurar, pudiendo incluso configurar \textit{dashboards} tipo en Grafana o rutas predefinidas en Alertmanager para los envíos de correo de nuevos clientes o proyectos.
+
+\section*{Flujo de trabajo con la aplicación}
+
+Retomando el ejemplo visto anteriormente (véase \hyperref[sec:flujo_manual]{sección \ref{sec:flujo_manual}}), ahora vamos a ver cómo sería el mism flujo de trabajo con esta aplicación.
+
+En este caso simplemente habría que crear un nuevo proyecto con el nombre del cliente, e introducir los datos de las máquinas en la tabla correspondiente \todo{sacar imágenes explicativas}. Al confirmar los datos introducidos, se generaría el fichero \url{JSON} y el fichero de alertado correspondientes, se instalaría de forma automática el agente necesario en cada máquina, y se añadirían las rutas configuradas en el fichero de configuración de Alertmanager, reiniciando dicho servicio.
+
+Evidentemente, esto supone un cambio importante en la cantidad de tiempo invertido, ya que si fuera un proyecto de mayor envergadura, la única diferencia que nos supondría es tener que añadir más datos en la aplicación.
