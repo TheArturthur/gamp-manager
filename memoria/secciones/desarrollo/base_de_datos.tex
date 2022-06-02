@@ -1,5 +1,38 @@
 Se ha desarrollado una base de datos en SQLite3\cite{sqlite}, para facilitar la portabilidad de la aplicación entre máquinas durante la fase de desarrollo. Sin embargo, de cara a una implementación productiva, se recomienda portar a una base de datos relacional en SQL.
+En esta base de datos, alojaremos los nuevos proyectos que se quieran monitorizar, los \textit{targets} asociados al mismo, y los \textit{exporters} utilizados por la aplicación.
 
 \subsection*{Diagrama}
 El diagrama de la base de datos es el siguiente:
 \input{include/desarrollo/diagrama_db.tex}
+
+\subsection*{Tabla de Proyectos}
+En esta tabla, almacenaremos los distintos proyectos que tenemos monitorizados con la aplicación. Cada proyecto tendrá:
+\begin{itemize}
+    \item \textbf{IdProject}: Un identificador único
+    \item \textbf{Name}: El nombre del proyecto
+    \item \textbf{Datacenter}: El nombre del datacenter donde se encuentra monitorizado
+\end{itemize}
+
+\subsection*{Tabla de Targets}
+En esta almacenaremos todos los \textit{targets} que se estén monitorizando. Cada target tendrá:
+\begin{itemize}
+    \item \textbf{IdTarget}: Un identificador único
+    \item \textbf{Name}: El nombre del target
+    \item \textbf{OS}: El sistema operativo que utiliza
+    \item \textbf{Prometheus}: Si utilizamos el servidor de Prometheus de producción (\url{prod}) o no (\url{nonprod})
+    \item \textbf{Environment}: El nombre del entorno al que pertenece
+    \item \textbf{Monitoring}: Si se está monitorizando o no
+    \item \textbf{Alerting}: Si se está alertando o no
+    \item \textbf{Port}: El puerto de la máquina desde el que se recogen las métricas
+    \item \textbf{Exporter\_id}: El identificador del exporter que se utiliza para este \textit{target}
+    \item \textbf{Project\_id}: El identificador del proyecto al que pertenece
+\end{itemize}
+
+\subsection*{Tabla de Exporters}
+En esta almacenaremos todos los \textit{exporters} que usemos en la aplicación. Para cada \textit{exporter} tendremos:
+\begin{itemize}
+    \item \textbf{IdExporter}: Un identificador único
+    \item \textbf{Name}: El nombre del exporter
+    \item \textbf{URL}: La url del repositorio donde se aloja
+    \item \textbf{Latest\_version}: La última versión disponible, para un acceso rápido
+\end{itemize}

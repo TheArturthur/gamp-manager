@@ -16,7 +16,7 @@
         \node [below=1.3cm of projects.west, anchor=west] (targets) {\textbf{Targets}};
         
         \node [relation=8, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.6cm of targets.west, anchor=west] (target)
-        {\underline{ID}%
+        {\underline{IdTarget}%
         \nodepart{two} Name
         \nodepart{three} OS
         \nodepart{four}  Prometheus
@@ -28,7 +28,7 @@
         \node [relation=2, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.69cm of target.west, anchor=west] (target_fk)
         {\underline{Exporter\_id}
         \nodepart{two} \underline{Project\_id}};
-        
+
         \node [below=1.1cm of target_fk.west, anchor=west] (exporters) {\textbf{Exporters}};
         
         \node [relation=4, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.6cm of exporters.west, anchor=west] (exporter)
@@ -37,9 +37,12 @@
         \nodepart{three} URL
         \nodepart{four}  Latest\_version};
         
+        \node [right=15cm of target.west, anchor=west] (target-project) {1:n};
+        \node [right=8.2cm of exporter.west, anchor=west] (target-exporter) {1:n};
+        
         % FOREIGN KEYS
         
-        \draw[-latex] (target_fk.two south) -- ++(0,-0.2) -| ($(target_fk.two south) + (10.3,0)$) |- ($(projects.one south) + (0.25,-0.50)$) -| ($(projects.one south) + (0.25,0)$);
+        \draw[-latex] (target_fk.two south) -- ++(0,-0.2) -| ($(target_fk.two south) + (11.5,0)$) |- ($(projects.one south) + (0.25,-0.50)$) -| ($(projects.one south) + (0.25,0)$);
         
         \draw[-latex] (target_fk.one south) -- ++(0,-0.4) -| ($(target_fk.one south) + (7,-0.4)$) |- ($(exporter.one south) + (0.25,-0.50)$) -| ($(exporter.one south) + (0.25,0)$);
         
