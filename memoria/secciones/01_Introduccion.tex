@@ -98,3 +98,9 @@ Además de eso, habría que conectarse remotamente a cada una de las máquinas (
 Después, habría que crear un fichero de alertas para dichos datos, de forma que Prometheus pueda notificar al Alertmanager que tenga configurado cuándo una alerta está activa. Afortunadamente, este fichero es inusual que se vea modificado, salvo en el filtrado del nombre del cliente, por lo que sería simplemente copiar la plantilla (ver \hyperref[lst:standar.yml]{Anexo \ref{lst:standar.yml}}) y hacer las modificaciones necesarias.
 
 Finalmente, habría que añadir las rutas de alertado que el cliente especifique (por ejemplo, por correo electrónico), y añadir el filtro de alertas que serán enviados a dichas rutas. Esto tendrá que hacerse manualmente, pues actualmente tampoco se dispone de una herramienta que lo automatice. Después habría que reiniciar el servicio de Alertmanager, para que tenga en cuenta las modificaciones.
+
+\section{Objetivo del trabajo}
+
+Este trabajo pretende solventar este problema, utilizando herramientas de automatización y una interfaz sencilla para que el usuario pueda realizar estas configuraciones de manera más rápida y eficiente.
+
+También busca mitigar el error humano que pueda aparecer al redactar los ficheros de configuración de Prometheus, y que puedan ser difíciles de detectar. Solventando la mayoría de esos errores mediante la automatización, podríamos reducir exponencialmente el tiempo invertido. 
