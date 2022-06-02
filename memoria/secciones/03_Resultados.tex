@@ -13,3 +13,11 @@ Retomando el ejemplo visto anteriormente (véase \hyperref[sec:flujo_manual]{sec
 En este caso simplemente habría que crear un nuevo proyecto con el nombre del cliente, e introducir los datos de las máquinas en la tabla correspondiente (ver \hyperref[fig:gui_create_project]{Figura \ref{fig:gui_create_project}} y \hyperref[fig:gui_add_target_test]{Figura \ref{fig:gui_add_target_test}}). Al confirmar los datos introducidos, se generaría el fichero \url{JSON} y el fichero de alertado correspondientes, se instalaría de forma automática el agente necesario en cada máquina, y se añadirían las rutas configuradas en el fichero de configuración de Alertmanager, reiniciando dicho servicio.
 
 Evidentemente, esto supone un cambio importante en la cantidad de tiempo invertido, ya que si fuera un proyecto de mayor envergadura, la única diferencia que nos supondría es tener que añadir más datos en la aplicación.
+
+\section*{Trabajo futuro}
+
+En próximas versiones de la aplicación, sería interesante poder instalar más agentes además del \textit{node\_exporter}, para poder conseguir una monitorización más completa de cada máquina. 
+
+También valoramos la posibilidad de que la aplicación sea más extensible, pudiendo añadir más servidores de Prometheus, Alertmanager y Grafana; para poder trabajar con la infraestructura de Alta Disponibilidad de Prometheus que pueda haber en algunas empresas.
+
+Por otro lado, podríamos pensar en una versión de la aplicación que permita la configuración de máquinas alojadas en servicios cloud, como por ejemplo \textit{Microsoft Azure}, \textit{Google Cloud Platform (GCP)}, \textit{Amazon Web Services (AWS)}.
