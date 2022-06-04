@@ -1,0 +1,105 @@
+\chapter{Introducción}
+\label{ch:intro}
+
+\section{Definiciones}
+En este apartado explicaremos brevemente los siguientes conceptos, para disponer de un conocimiento base sobre las herramientas más utilizadas y sobre las que se basa este trabajo.
+
+\subsection*{Prometheus}
+Prometheus\cite{prometheus} es una herramienta open-source para monitorizar sistemas. Esto lo consigue mediante el uso de agentes exportadores de métricas (\textit{exporters}), instalados en las máquinas objetivo (\textit{targets}), que recogen y publican los datos de las mismas.
+
+Estos datos, vienen en la forma de métricas: vectores de dimensión variable, en función de las etiquetas asociadas, y con un valor numérico.
+
+\subsection*{Target}
+En este proyecto, un \textit{target} se entiende como un par \textit{$<host:puerto>$}, donde \textit{$host$} es el nombre de una máquina que se desea monitorizar, y el $puerto$ indica el puerto de red de la máquina en el que se encuentran las métricas publicadas por los \textit{exporters}.
+
+\subsection*{Alertmanager}
+Alertmanager\cite{alertmanager} maneja las alertas enviadas por prometheus. Se encarga de eliminar duplicados, agrupar y distribuir las alertas a los servicios configurados. Es capaz de crear silencios e inhibiciones entre alertas.
+
+\subsection*{Grafana}
+Grafana\cite{grafana} es una herramienta utilizada para crear \textit{dashboards} y paneles en los que tener una representación más visual de los datos recogidos por, en este caso, Prometheus.
+
+
+\section{Estado del arte}
+
+La configuración de Prometheus se realiza mediante un fichero \url{YAML}. En este fichero se especifican, entre otras cosas, los distintos trabajos (\textit{jobs}) a los que serán asignados los \textit{targets}. 
+
+Estos \textit{jobs} estarán preferiblemente asociados al \textit{exporter} que se encarga de publicar las métricas, para facilitar la comprensión de los datos. En ellos se especifica el nombre del \textit{job} y la lista de \textit{targets} que serán monitorizados.
+
+A la hora de añadir un \textit{target} a la configuración de un \textit{job}, se debe añadir una nueva entrada en el fichero \url{prometheus.yml}, según el siguiente formato:
+
+\input{include/intro/static_prometheus.yml.tex}
+
+Esto es eficiente únicamente cuando se desean tener monitorizaciones estáticas, o de poca envergadura, como podría ser un proyecto personal o la monitorización de las máquinas de un hogar. Esto se debe a que a cada modificación que sufra el fichero \url{prometheus.yml} debe reiniciarse el servicio de Prometheus para que acepte la nueva configuración.
+
+Algo similar ocurre tanto con Alertmanager como con Grafana, puesto que en cada modificación de los ficheros \url{alertmanager.yml} y \url{grafana.ini} respectivamente, es necesario reiniciar el servicio.
+
+Una buena alternativa presente actualmente únicamente en Prometheus consiste en usar descubrimiento dinámico de ficheros (\textit{File System Discovery}) para obtener la lista de	\textit{targets} de manera dinámica:
+
+\input{include/intro/dynamic_prometheus.yml.tex}
+
+Esto nos permite poder añadir los \textit{targets} en un fichero \url{JSON} separado, sin tener que modificar el fichero \url{prometheus.yml} en cada actualización, con el subsiguiente reinicio del servicio Prometheus. Así, especificando el tiempo que tardará Prometheus en reinspeccionar los distintos ficheros \url{JSON} que se indiquen (en el ejemplo superior, dos minutos), podremos añadir, modificar o eliminar	\textit{targets} sin tener que reiniciar el servicio cada vez.
+
+Sin embargo, esto sigue requiriendo una enorme cantidad de tiempo, especialmente con proyectos de larga envergadura, al seguir teniendo que generar los ficheros de manera manual. Es por eso que surge la idea de esta aplicación, que genere dichos ficheros y configuraciones de manera automática a partir de los datos introducidos por el usuario, con mayor rapidez y menor número de errores posibles, y que reinicia el servicio de los servicios si fuera necesario porque se haya modificado el fichero de configuración correspondiente.
+
+\subsection*{Ejemplo de flujo de trabajo de forma manual}
+\label{sec:flujo_manual}
+
+Supongamos que tenemos un proyecto de monitorización de un cliente en nuestra empresa, que tiene las siguientes máquinas a monitorizar, y quiere monitorizar los siguientes datos:
+
+\begin{multicols}{2}
+\begin{tabular}[h]{l|l|l}
+    \textbf{Entorno} & \textbf{Nombre} & \textbf{SO} \\
+    \hline
+    \hline
+    Producción & win-prod & Windows \\
+    \hline
+    Producción & linux-prod & Linux \\
+    \hline
+    Preproducción & win-pre & Windows \\
+    \hline
+    Preproducción & linux-pre & Linux \\
+    \hline
+    Pruebas & win-test & Windows \\
+    \hline
+    Pruebas & lin-test & Linux \\
+\end{tabular}
+\columnbreak   
+\begin{itemize}
+    \item CPU
+    \item Memoria
+    \item Red
+    \item Disco o Sistema de Ficheros (en función del sistema operativo)
+    \item Estado de servicios
+\end{itemize}
+\end{multicols}
+
+A la hora de añadirlos en la monitorización, tendríamos que crear un fichero \url{JSON}, y añadir lo siguiente para cada máquina:
+\begin{lstlisting}[language=json]
+{
+    "targets": [
+        "win-prod:9182"
+    ],
+    "labels": {
+        "jobname": "Windows Exporter Produccion",
+        "environment": "Produccion",
+        "SO": "Windows",
+        ... // Otras etiquetas sobre la maquina
+    }
+}
+\end{lstlisting}
+
+Esto es, porque las etiquetas (\textit{labels}) son distintas para cada máquina. Estas etiquetas son útiles para, a la hora de visualizar los datos, realizar filtros. Como son introducidas en cada métrica que Prometheus asocia a este job, de ponerlas juntas no podrían diferenciarse las máquinas entre sí.
+
+Por tanto, habría que duplicar el código anterior (en este caso) seis veces para poder diferenciar entre las distintas máquinas. En el caso de que fuera un proyecto más extenso, esta tarea podría resultar tediosa.
+
+Además de eso, habría que conectarse remotamente a cada una de las máquinas (con la subsecuente solicitud de acceso, creación de usuario y asignación de permisos necesarios, comunicación entre estas máquinas y nuestro servidor de Prometheus, etc.), e instalar y configurar manualmente cada uno de los agentes que vamos a necesitar (en este caso, \textit{Node Exporter} para las máquinas Linux, y \textit{Windows Exporter} para las máquinas Windows).
+
+Después, habría que crear un fichero de alertas para dichos datos, de forma que Prometheus pueda notificar al Alertmanager que tenga configurado cuándo una alerta está activa. Afortunadamente, este fichero es inusual que se vea modificado, salvo en el filtrado del nombre del cliente, por lo que sería simplemente copiar la plantilla (ver \hyperref[lst:standar.yml]{Anexo \ref{lst:standar.yml}}) y hacer las modificaciones necesarias.
+
+Finalmente, habría que añadir las rutas de alertado que el cliente especifique (por ejemplo, por correo electrónico), y añadir el filtro de alertas que serán enviados a dichas rutas. Esto tendrá que hacerse manualmente, pues actualmente tampoco se dispone de una herramienta que lo automatice. Después habría que reiniciar el servicio de Alertmanager, para que tenga en cuenta las modificaciones.
+
+\section{Objetivo del trabajo}
+
+Este trabajo pretende solventar este problema, utilizando herramientas de automatización y una interfaz sencilla para que el usuario pueda realizar estas configuraciones de manera más rápida y eficiente.
+
+También busca mitigar el error humano que pueda aparecer al redactar los ficheros de configuración de Prometheus, y que puedan ser difíciles de detectar. Solventando la mayoría de esos errores mediante la automatización, podríamos reducir exponencialmente el tiempo invertido. 

@@ -1,0 +1,15 @@
+En esta sección observaremos las distintas ventanas que se utilizan en la aplicación y cómmo crear proyectos y añadir	\textit{targets} a los mismos.
+
+\subsection*{Pantalla de inicio}
+\label{sec:gui_home}
+En esta primera pantalla (véase \hyperref[fig:gui_home]{Figura \ref{fig:gui_home}}), podemos buscar un proyecto en la base de datos. Sólamente si el proyecto fue añadido por la aplicación estará disponible para consulta. En caso de no encontrarlo, mostrará una alerta indicándolo (véase \hyperref[fig:gui_project_not_found]{Figura \ref{fig:gui_project_not_found}}).
+
+\subsection*{Creación de un nuevo proyecto}
+\label{sec:gui_create_project}
+Para poder crear y añadir un proyecto a la base de datos de la aplicación, se deberán introducir únicamente el nombre del proyecto y, opcionalmente, el \textit{Datacenter} en el que se ubica (véase \hyperref[fig:gui_create_project]{Figura \ref{fig:gui_create_project}}).
+
+\subsection*{Añadir	\textit{targets}}
+\label{sec:gui_add_target}
+A la hora de añadir nuevos \textit{targets} a la monitorización, elegiremos un proyecto del desplegable, que contiene todos los proyectos presentes en la base de datos (véase \hyperref[fig:gui_add_target_choose_project]{Figura \ref{fig:gui_add_target_choose_project}}). En caso de que el proyecto no esté, nos dará la opción de añadirlo directamente sin tener que cambiar de ventana para ello (véase \hyperref[fig:gui_add_target_project_not_listed]{Figura \ref{fig:gui_add_target_project_not_listed}}).
+
+Una vez seleccionado el proyecto al que pertenece el nuevo \textit{target}, aparecerá una tabla con los campos que se deben rellenar (véase \hyperref[fig:gui_add_target_test]{Figura \ref{fig:gui_add_target_test}}). También aparecerán los \textit{targets} ya presentes en el proyecto, de forma que podamos comprobar fácilmente si un \textit{target} en cuestión ya está introducido y no generar duplicados.

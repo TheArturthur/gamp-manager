@@ -23,6 +23,7 @@
 		"latex-workshop.latex.outDir": "%DIR%/build",
 		"latex-workshop.latex.bibDirs": [
 			"%DIR%/bibliography"
-		]
+		],
+		"files.autoSave": "afterDelay"
 	}
 }

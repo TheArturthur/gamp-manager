@@ -1,0 +1,11 @@
+\begin{lstlisting}[language=Yaml,frame=single,caption={Configuración estática de prometheus.yml:},label={lst:prometheus.yml}]
+    ---
+    - job: prometheus
+    static_configs:
+    - targets:
+      - "localhost:9090"
+      labels:
+        jobname: prometheus
+        monitoring: true
+        alerting: true
+    \end{lstlisting}
