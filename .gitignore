@@ -35,7 +35,8 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+**/build/**
+!**/build/*.pdf
 develop-eggs/
 dist/
 downloads/

@@ -1,0 +1,5 @@
+Una de las funciones de la aplicación es llevar un registro de las versiones de los exporters que hay instaladas en cada máquina, para poder ser actualizados en caso de que hubiera actualizaciones.
+
+Para ello, se ha creado un exporter, siguiendo la guía oficial\cite{exporter_creation}, que añade una métrica a las publicadas por \textit{node\_exporter} llamada \textit{version\_info}, que contiene la versión de cada agente instalado y la versión más reciente disponible.
+
+Esto nos permite enviar alertas cuando un agente queda desactualizado, y tener un registro de las versiones de los agentes instalados en cada máquina.

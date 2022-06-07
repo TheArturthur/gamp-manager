@@ -1,0 +1,12 @@
+Como ya hemos visto previamente (ver \hyperref[sec:gui]{sección \ref{sec:gui}}), al interactuar con la aplicación se llama a un backend de Python que ejecuta los distintos componentes.
+
+\subsubsection*{Llamadas a la base de datos}
+Al crear un nuevo proyecto, o añadir un \textit{target} a un proyecto ya existente, se realizan llamadas a la base de datos. Esto se realiza mediante el módulo de Python llamado \hyperref{https://flask-sqlalchemy.palletsprojects.com/en/2.x/}{SQL-Alchemy}, que nos permite interactuar con las bases de datos que le configuremos más cómodamente que con las que nos proporciona la librería propia de Python.
+
+\subsubsection*{Ansible}
+Una vez se ha añadido un nuevo \textit{target} a la aplicación, se llama a una clase propia de Python que comunica con ansible mediante el módulo oficial. Esta clase primero añadirá el nombre del \textit{target} a un fichero de inventario de ansible, y luego ejecutará el \hyperref[lst:playbook]{\textit{playbook}}creado para instalar el agente \textit{node\_exporter} contra las máquinas presentes en el inventario.
+
+\subsubsection*{Prometheus y Alertmanager}
+Al crear un nuevo proyecto, Python genera un fichero \url{JSON}, que deja inicialmente vacío, a la espera de rellenarse con nuevos \textit{targets}. También se crea un nuevo fichero de alertas para las métricas que se reciban relativas al proyecto una vez se añadan \textit{targets} al mismo. Este fichero será plenamente funcional, puesto que hasta que no se reciban métricas que contengan el proyecto (introducidas por la configuración de Prometheus), no se harán efectivas. Seguidamente, se reinicia el servicio de Prometheus, para tener en cuenta las nuevas alertas.
+
+Al añadir un nuevo \textit{target}, se añade una nueva entrada al fichero \url{JSON}, con el mismo formato que se ha explicado previamente, y con los datos introducidos al añadir el \textit{target} (véase \hyperref[sec:gui_add_target]{sección \ref{sec:gui_add_target}}). Este fichero \url{JSON} será inspeccionado automáticamente por Prometheus en función del tiempo que se le haya asignado en la configuración (ver ejemplo en el Listing \hyperref[lst:file_sd_prom.yml]{\ref{lst:file_sd_prom.yml}}).
