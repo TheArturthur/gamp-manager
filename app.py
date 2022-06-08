@@ -1,6 +1,9 @@
-from src.ui import create_app
+"""
+    Base script to launch application.
+"""
+import src.ui
 
-app = create_app()
+app = src.ui.create_app()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
