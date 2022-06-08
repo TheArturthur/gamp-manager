@@ -1,25 +1,19 @@
-import os
+"""
+Base functions to operate with Ansible
+"""
+import ansible_runner as ar
 
-from docker.models.containers import Container
 
-from src import DockerFunctions, run_command_in_container
-
-
-class Ansible:
-    def __init__(self):
-        dockerfile_relative_path = 'ansible/docker/'
-        dockerfile = ''.join([os.getcwd(), '/', dockerfile_relative_path])
-        self.container_ansible_path = '/ansible'
-        self.df = DockerFunctions()
-        self.df.build_image(path=dockerfile, name='ansible')
-        self.ansible_container = self.get_ansible_container()
-
-    def get_ansible_container(self) -> Container:
-        return self.df.get_container('ansible')
-
-    def run_ansible_command(self, command: str) -> None:
-        run_command_in_container(command, self.ansible_container)
-
-    def run_ansible_playbook(self, playbook: str, inventory: str, hosts: str):
-        command = f'ansible-playbook {playbook} {hosts} -i {inventory}'
-        run_command_in_container(command, self.ansible_container)
+def run_ansible_playbook(playbook: str, extra_vars: dict, arguments=None):
+    """
+    Runs playbook in Ansible
+    @param playbook route to Ansible playbook
+    @param extra_vars Additional variables to pass to playbook
+    @param arguments Additional arguments to specify in command
+    """
+    ar.run(
+        private_data_dir="./ansible",
+        playbook=playbook,
+        extravars=extra_vars,
+        cmdline=arguments,
+    )

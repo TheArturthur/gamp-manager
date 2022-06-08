@@ -21,5 +21,6 @@ RUN apt update && \
     apt install -y npm && \
     apt install -y sqlite3 && \
     apt install -y sshpass && \
+    apt install -y ansible && \
     curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10 && \
     pip3 install -r requirements.txt

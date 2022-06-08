@@ -1,3 +1,4 @@
+ansible-runner
 astroid
 atomicwrites
 attrs

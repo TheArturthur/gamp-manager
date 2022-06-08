@@ -3,12 +3,19 @@ import os
 import sys
 from string import Template
 
+from src.ansible import run_ansible_playbook
+from src.ui.models import Targets
+
 sys.path.append(os.path.abspath("src"))
 
-# targets = ["patatas", "fritas", "con", "huevos", "rotos", "y", "jamon"]
-targets = ["a", "las", "patatas", "no", "se", "les", "echa", "ketchup"]
+TARGETS_PATH = os.path.abspath(
+    os.getcwd() + "/src/prometheus/prometheus-server/targets/"
+)
+RULES_PATH = os.path.abspath(os.getcwd() + "/src/prometheus/prometheus-server/rules/")
+STANDARD_RULES_PATH = os.path.abspath(
+    os.getcwd() + "/src/prometheus/prometheus-server/rules/standard.yml"
+)
 
-TEST_FILE = 'test.json'
 JSON_TEMPLATE = Template(
     """  {
         "targets": [
@@ -20,75 +27,109 @@ JSON_TEMPLATE = Template(
           "ENVIRONMENT": "$environment",
           "HOST": "$host",
           "PORT": "$port",
+          "OS": "$os",
           "MONITORING": "$monitoring",
           "PROMETHEUS": "$prometheus",
           "EXPORTER": "$exporter",
           "ALERTING": "$alerting"
         }
-      }""")
+      }"""
+)
 
 
-def create_job():  # target: Targets) -> str:
+def ansible_add_host_to_inventory(target: Targets):
+    playbook_arguments = '--tags "inventory"'
+    extra_vars = {"target_name": target.Name}
+    run_ansible_playbook(
+        playbook="prometheus.yml", extra_vars=extra_vars, arguments=playbook_arguments
+    )
+
+
+def ansible_install_exporter(target: Targets, exporter_version: str) -> None:
+    arguments = f"--limit {target.Name}"
+    extra_vars = {"exporter_version": exporter_version}
+    run_ansible_playbook(
+        playbook="node_exporter.yml", extra_vars=extra_vars, arguments=arguments
+    )
+
+
+def add_new_project_to_prometheus(
+        target: Targets, exporter_name: str, project_name: str
+) -> None:
+    new_job = __create_job__(
+        target=target, exporter_name=exporter_name, project_name=project_name
+    )
+    __add_job_to_json__(
+        new_job=new_job, exporter_name=exporter_name, project_name=project_name
+    )
+    # __add_project_rules__(project_name=project_name)
+
+
+def __create_job__(target: Targets, exporter_name: str, project_name: str) -> str:
     """
     Create a job for a target.
     """
-    # TODO: Add usage with target from DB.
+    json_targets = ":".join([target.Name, str(target.Port)])
 
-    new_job = JSON_TEMPLATE.substitute(targets='"{}"'.format('",\n      "'.join(targets)),
-                                       jobname="Node Exporter TEST", project="test", environment="TEST",
-                                       host="test1", port="9100", monitoring="true", prometheus="nonprod",
-                                       exporter="node", alerting="false")
-
+    new_job = JSON_TEMPLATE.substitute(
+        targets='"{}"'.format('",\n      "'.join([json_targets])),
+        jobname=" ".join([exporter_name, target.Environment]),
+        project=project_name,
+        environment=target.Environment,
+        host=target.Name,
+        port=target.Port,
+        os=target.OS,
+        monitoring=target.Monitoring,
+        prometheus=target.Prometheus,
+        exporter=exporter_name,
+        alerting=target.Alerting,
+    )
     return new_job
 
 
-def add_job_to_json():  # target: Targets) -> None:
+def __add_job_to_json__(new_job: str, exporter_name: str, project_name: str) -> None:
     """
     Add a job to the json file.
     """
-    # TODO: Add usage with target from DB.
+    json_file_path = TARGETS_PATH + f"/{project_name}.json"
     try:
-        with open(TEST_FILE, 'r') as file_reader:
+        with open(json_file_path, "r") as file_reader:
             json_file = json.loads(file_reader.read())
 
-        with open(TEST_FILE, 'w') as file_writer:
-            new_job = create_job()
-            if json_file == []:
+        with open(json_file_path, "w") as file_writer:
+            if not json_file:
                 file_writer.write(f"[\n{new_job}\n]")
                 return
 
             new_job_json = json.loads(new_job)
             found_same_job = -1
             for index, job in enumerate(json_file):
-                if job['labels'] == new_job_json['labels']:
+                if job["labels"] == new_job_json["labels"]:
                     found_same_job = index
                     break
             if found_same_job == -1:
                 json_file.append(new_job_json)
             else:  # add targets:
-                for target in new_job_json['targets']:
-                    if target not in json_file[found_same_job]['targets']:
-                        json_file[found_same_job]['targets'].append(target)
+                for target in new_job_json["targets"]:
+                    if target not in json_file[found_same_job]["targets"]:
+                        json_file[found_same_job]["targets"].append(target)
 
             json.dump(json_file, file_writer, indent=2)
     except (FileNotFoundError, json.JSONDecodeError):
-        with open(TEST_FILE, 'w') as f:
-            f.write('[\n\n]')
-        add_job_to_json()
+        with open(json_file_path, "w") as f:
+            f.write("[\n\n]")
+        __add_job_to_json__(
+            new_job=new_job, exporter_name=exporter_name, project_name=project_name
+        )
 
 
-def add_project_rules(project):  # project: Projects) -> None:
+def __add_project_rules__(project_name: str) -> None:
     """
     Add rules file for the project from standard.
     """
-    # TODO: add rules file for the project from standard.
-    with open('standard.yml', 'r') as standard_alerts:
+    rules_file_path = RULES_PATH + f"{project_name}_alerts.yml"
+    with open(STANDARD_RULES_PATH, "r") as standard_alerts:
         rules = standard_alerts.read()
-    with open(f'{project}_alerts.yml', 'w') as project_alerts:
-        rules.replace('PROJECT=""', f'PROJECT="{project}"')
+    with open(rules_file_path, "w") as project_alerts:
+        rules.replace('PROJECT=""', f'PROJECT="{project_name}"')
         project_alerts.write(rules)
-
-
-if __name__ == "__main__":
-    add_job_to_json()
-    add_project_rules(project="test")

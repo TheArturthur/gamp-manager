@@ -1,0 +1,28 @@
+---
+- name: Manage prometheus targets
+  hosts: localhost
+  tasks:
+    - name: Add target host to inventory
+      lineinfile:
+        path: /home/avidal/git/gamp-manager/ansible/inventory/inventory.yml
+        insertafter: "hosts:"
+        line: "        {{ target_name }}:"
+      tags:
+        - inventory
+    - name: Create project JSON and add target
+      blockinfile:
+        path: '../../src/prometheus/prometheus-server/targets/{{ target_project }}.json'
+        create: yes
+        marker: ""
+        insertafter: \[
+        block: "[ {{ lookup('template', 'templates/target_json.j2') }} ]"
+      tags:
+        - new_json
+    - name: Add target to project JSON
+      blockinfile:
+        path: '../../src/prometheus/prometheus-server/targets/{{ target_project }}.json'
+        marker: ""
+        insertafter: \}
+        block: ",{{ lookup('template', 'templates/target_json.j2') }}"
+      tags:
+        - add_json

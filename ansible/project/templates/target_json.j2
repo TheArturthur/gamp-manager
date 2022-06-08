@@ -1,0 +1,18 @@
+  {% block target %}
+  {
+    "targets": [
+        "{{ target_name }}:{{ target_port }}"
+    ],
+    "labels": {
+        "prometheus": "{{ target_prometheus }}",
+        "exporter": "{{ target_exporter }}",
+        "port": "{{ target_port }}",
+        "host": "{{ target_name }}",
+        "monitoring": "{{ target_monitoring }}",
+        "alerting": "{{ target_alerting }}",
+        "os": "{{ target_os }}",
+        "environment": "{{ target_environment }}",
+        "project": "{{ target_project }}"
+    }
+  }
+  {% endblock %}
