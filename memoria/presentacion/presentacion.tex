@@ -1,0 +1,51 @@
+\documentclass[]{beamer}
+%Information to be included in the title page:
+\input{include/Preambulo}
+%\includeonlyframes{intro,howto}
+%\includeonlyframes{problemas,objetivos}
+%\includeonlyframes{ansible,python,interfaz}
+%\includeonlyframes{demo,trabajo_futuro,conclusiones}
+
+\begin{document}
+
+\frame{\titlepage}
+\tableofcontents
+
+\section{Introducción}
+\subsection{¿Qué es Prometheus?}
+\input{secciones/intro_prometheus}
+
+\subsection{¿Cómo se monitoriza un nuevo target?}
+\input{secciones/howto_monitorizar}
+
+
+\section{Motivaciones y Objetivos}
+\subsection{Motivaciones: Problemas con la monitorización actual}
+\input{secciones/problemas_monitorizacion}
+
+\subsection{Objetivos: ¿Qué se pretende conseguir con la app?}
+\input{secciones/objetivos}
+
+
+\section{Proceso de desarrollo}
+\subsection{Ansible}
+\input{secciones/ansible}
+
+\subsection{API en Python}
+\input{secciones/api_python}
+
+\subsection{Interfaz}
+\input{secciones/interfaz}
+
+
+\section{Resultados y Conclusiones}
+\subsection{Resultados: Funcionamiento de la aplicación}
+\input{secciones/demo}
+
+\subsection{Trabajo futuro}
+\input{secciones/trabajo_futuro}
+
+\subsection{Conclusiones: App vs tradicional}
+\input{secciones/conclusiones}
+
+\end{document}

@@ -1,0 +1,40 @@
+\begin{frame}[label=howto,fragile]
+    \frametitle{¿Cómo se monitoriza un nuevo target?}
+    \begin{multicols}{2}
+        Forma estática:
+        \begin{verbbox}[\small\slshape]
+- job: node exporter
+  static_configs:
+  - targets:
+    - "localhost:9091"
+      labels:
+      jobname: node
+      os: linux
+        \end{verbbox}
+        \noindent\hspace{1cm}\fbox{\theverbbox}
+        \columnbreak
+        
+        Forma dinámica:
+        \begin{verbbox}[\small\slshape]
+- job: node exporter
+  file_sd_configs:
+  - files:
+    - "targets/*.json"
+    refresh_interval: 2m
+        \end{verbbox}
+        \noindent\hspace{1cm}\fbox{\theverbbox}
+        \begin{verbbox}[\small\slshape]
+{
+  "targets": [
+    "localhost:9091"
+  ],
+  "labels": {
+    "jobname": "node",
+    "os": "linux"
+  }
+}
+        \end{verbbox}
+        \noindent\hspace{1in}\fbox{\theverbbox}
+    \end{multicols}
+  \input{secciones/notas/howto_monitorizar_notes}
+\end{frame}

@@ -1,0 +1,53 @@
+\usepackage[utf8]{inputenc}
+\usepackage{pgfpages}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{todonotes}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{amssymb}
+\usepackage{verbatimbox}
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\usetheme{Berkeley}
+\usecolortheme{seahorse}
+% \setbeameroption{show notes on second screen=right}
+\setbeamertemplate{caption}[numbered]
+
+
+\makeatletter
+\setbeamertemplate{sidebar \beamer@sidebarside}%{sidebar theme}
+{
+  \beamer@tempdim=\beamer@sidebarwidth%
+  \advance\beamer@tempdim by -6pt%
+  \insertverticalnavigation{\beamer@sidebarwidth}%
+  \vfill
+  \ifx\beamer@sidebarside\beamer@lefttext%
+  \else%
+    \usebeamercolor{normal text}%
+    \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+    \vskip2pt%
+  \fi%
+}%
+\makeatother
+
+\input{include/_DatosPresentacion}
+
+\title{\textsc{\TituloTFG}}
+\author{\NombreAutor\inst{1} \and \NombreTutor\inst{2}}
+\institute{
+    \inst{1}
+    \Escuela\\\Universidad
+    \and
+    \inst{2}
+    \Departamento\\\Escuela\\\Universidad
+    \and
+    En colaboración con \EmpresaColaboradora
+}
+\date{\Fecha}
+
+\logo{
+    \includegraphics[height=1cm]{../include/FacInformatica.png}
+}
