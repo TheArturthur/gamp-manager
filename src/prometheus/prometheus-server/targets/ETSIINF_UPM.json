@@ -1,0 +1,19 @@
+[
+  {
+        "targets": [
+          "datsi:9100"
+        ],
+        "labels": {
+          "jobname": "Node Exporter PRO",
+          "PROJECT": "ETSIINF UPM",
+          "ENVIRONMENT": "PRO",
+          "HOST": "datsi",
+          "PORT": "9100",
+          "OS": "Linux",
+          "MONITORING": "True",
+          "PROMETHEUS": "prod",
+          "EXPORTER": "Node Exporter",
+          "ALERTING": "True"
+        }
+      }
+]

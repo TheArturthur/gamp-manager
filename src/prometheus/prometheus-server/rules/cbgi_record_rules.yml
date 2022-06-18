@@ -1,0 +1,5 @@
+groups:
+  - name: cbgi_record_rules
+    rules:
+    - record: cbgi_cpu_percentage_usage
+      expr: 100 - avg without(cpu, core) (irate(node_cpu_seconds_total{mode="idle"}[5m])*100)

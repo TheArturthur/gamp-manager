@@ -13,8 +13,8 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-# - "first_rules.yml"
-# - "second_rules.yml"
+  - "rules/cbgi_record_rules.yml"
+  - "rules/*_alerts.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -27,9 +27,9 @@ scrape_configs:
 
     static_configs:
       - targets: [ "localhost:9090" ]
+ 
   - job_name: "node"
-    static_configs:
-      - targets: [ "gamp-manager-app-1:9100" ]
-  - job_name: "wmi"
-    static_configs:
-      - targets: [ "host.docker.internal:9182" ]
+    file_sd_configs:
+    - files: 
+      - "targets/*.json"
+      refresh_interval: 2m

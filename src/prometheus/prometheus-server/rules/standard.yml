@@ -1,0 +1,221 @@
+groups:
+- name: #Name
+  rules:
+
+#       CPU
+
+  - alert: CBGI_CPU_Warning
+    expr: cbgi_cpu_percentage_usage{PROJECT=""} > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% CPU warning usage.
+
+  - alert: CBGI_CPU_Critical
+    expr: cbgi_cpu_percentage_usage{PROJECT=""} > 95
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% CPU critical usage.
+
+#       MEMORY
+
+  - alert: CBGI_Memory_Warning
+    expr: cbgi_memory_percentage_usage{PROJECT=""} > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% Memory warning usage.
+
+  - alert: CBGI_Memory_Critical
+    expr: cbgi_memory_percentage_usage{PROJECT=""} > 95
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% Memory critical usage.
+
+#       FILESYSTEM/DISK
+
+  # - alert: CBGI_Filesystem_Warning
+  #   expr: cbgi_filesystem_percentage_usage{PROJECT="",mountpoint!~"/mnt.*"} > 90
+  #   for: 5m
+  #   labels:
+  #     severity: warning
+  #   annotations:
+  #     summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% usage in {{ $labels.mountpoint }} [warning usage].
+
+  # - alert: CBGI_Filesystem_Critical
+  #   expr: cbgi_filesystem_percentage_usage{PROJECT="",mountpoint!~""} > 95
+  #   for: 5m
+  #   labels:
+  #     severity: critical
+  #   annotations:
+  #     summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{ humanize $value }}% usage in {{ $labels.mountpoint }} [critical usage].
+
+  # - alert: CBGI_Filesystem_No_Exist_Critical
+    # expr: cbgi_filesystem_exist_mountpoint{PROJECT="",mountpoint=~""} == 1
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} {{ $labels.mountpoint }} not found.
+
+  # - alert: CBGI_Disk_Warning
+    # expr: cbgi_disk_percentage_usage{PROJECT=""} > 90
+    # for: 5m
+    # labels:
+      # severity: warning
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{humanize $value}}% in volume {{ $labels.volume }} [warning usage].
+
+  # - alert: CBGI_Disk_Critical
+    # expr: cbgi_disk_percentage_usage{PROJECT=""} > 95
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has {{humanize $value}}% in volume {{ $labels.volume }} [critical usage].
+
+ #       DISK LOAD
+
+  - alert: CBGI_Disk_Load_Critical
+    expr: cbgi_disk_load{PROJECT=""} > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has excessive disk load (read/write).
+
+#       STATUS
+
+  - alert: CBGI_VM_Status_Critical
+    expr: probe_success{PROJECT="",PORT="ICMP"} == 0
+    for: 3m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} is down.
+
+#       REMOTE PING
+
+  # - alert: CBGI_Remote_Ping_Critical
+    # expr: cbgi_remote_ping_status{PROJECT=""} == 0
+    # for: 3m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has no ping to {{ $labels.instance }}.
+
+#       EXPORTER
+
+  - alert: CBGI_Exporter_Down_Critical
+    expr: up{PROJECT=""} == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has the {{ $labels.EXPORTER }} is down.
+
+#       PORTS
+
+  # - alert: CBGI_TCP_Critical
+    # expr: cbgi_tcp_status{PROJECT=""} == 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} in the host {{ $labels.HOST }} the port {{ $labels.PORT}} is down.
+
+#       NETWORK
+
+  - alert: CBGI_Network_Warning
+    expr: cbgi_network_usage{PROJECT=""} > 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has warning network problems.
+
+  - alert: CBGI_Network_Critical
+    expr: cbgi_network_usage{PROJECT=""} > 50
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has critical network problems.
+
+#      PROCESS/SERVICES/LOGS
+
+  # - alert: CBGI_Process_Critical
+    # expr: cbgi_process_status{PROJECT=""} == 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: Form {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has the process {{ $labels.groupname }} down.
+
+  # - alert: CBGI_Services_Critical
+    # expr: cbgi_service_status{PROJECT=""} == 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: Form {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has the service {{ $labels.name }} down.
+
+  # - alert: CBGI_Log_Critical
+    # expr: cbgi_log_error{PROJECT=""} > 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: Form {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} {{ $value }} errors in {{ $labels.log }}.
+
+#    TABLESPACE
+
+  # - alert: CBGI_Tablespace_Warning
+    # expr: cbgi_tablespace_percentage_usage{PROJECT=""} > 95
+    # for: 5m
+    # labels:
+      # severity: warning
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has tablespace {{ $labels.tablespace }} {{humanize $value}}% filled.
+
+  # - alert: CBGI_Oracle_Errors
+    # expr: cbgi_oracle_errors{PROJECT=""} > 0
+    # for: 5m
+    # labels:
+      # severity: warning
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} {{ $value }} {{ $labels.type }} errors.
+
+#       URL
+
+  # - alert: CBGI_URL_Critical
+    # expr: cbgi_http_status_code and cbgi_http_status{PROJECT=""} == 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the url {{ $labels.instance }} has http code {{ $value }}.
+
+  # - alert: CBGI_URL_Chain_Critical
+    # expr: probe_failed_due_to_regex{PROJECT=""} > 0
+    # for: 5m
+    # labels:
+      # severity: critical
+    # annotations:
+      # summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the url {{ $labels.instance }} has wrong content.
+
+#        USERS
+
+  # - alert: CBGI_User_Connected_Critical
+  #   expr: cbgi_cm_check_user{PROJECT=""} == 0
+  #   for: 5m
+  #   labels:
+  #     severity: critical
+  #   annotations:
+  #     summary: From {{ $labels.PROJECT }} {{ $labels.ENVIRONMENT }} the host {{ $labels.HOST }} has the user {{ $labels.user }} connected.
