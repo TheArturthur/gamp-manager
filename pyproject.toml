@@ -13,7 +13,7 @@ marshmallow-sqlalchemy = "^0.27.0"
 mysqlclient = "^2.1.0"
 SQLAlchemy = "^1.4.33"
 SQLAlchemy-Utils = "^0.38.2"
-requests = "^2.27.1"
+requests = "^2.31.0"
 pyvmomi = "^7.0.3"
 pywin32 = "^304"
 
