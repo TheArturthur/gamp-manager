@@ -6,7 +6,7 @@ authors = ["Arturo Vidal Peña <arturo.vidal.96@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-Flask = "^2.0.3"
+Flask = "^2.2.5"
 Flask-SQLAlchemy = "^2.5.1"
 flask-marshmallow = "^0.14.0"
 marshmallow-sqlalchemy = "^0.27.0"
