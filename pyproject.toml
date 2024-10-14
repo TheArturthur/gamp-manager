@@ -15,7 +15,7 @@ SQLAlchemy = "^1.4.33"
 SQLAlchemy-Utils = "^0.38.2"
 requests = "^2.32.3"
 pyvmomi = "^7.0.3"
-pywin32 = "^304"
+pywin32 = "^308"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
