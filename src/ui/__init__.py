@@ -1,3 +1,5 @@
+import os
+
 from dotenv import dotenv_values
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +8,8 @@ from src.backend import check_if_database_exists
 
 db = SQLAlchemy()
 USERNAME = "gamp.backend"
-PASSWORD = "ContraseñaLarga1234"
+# En secrets/.env (no versionado) o en el entorno.
+PASSWORD = os.environ.get('DB_PASSWORD') or dotenv_values('secrets/.env')['DB_PASSWORD']
 SERVER = "192.168.1.148"
 PORT = 3306
 DB_NAME = "gamp-manager"

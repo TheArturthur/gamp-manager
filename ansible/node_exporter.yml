@@ -10,13 +10,13 @@
       owner: root
       group: root
     vars:
-      ansible_become_password: 'BolgerDan2'
+      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
   - name: Install node exporter
     become: yes
     import_role: 
       name: cloudalchemy.node_exporter
     vars:
-      ansible_become_password: 'BolgerDan2'
+      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
       node_exporter_version: latest
       node_exporter_web_listen_address: "0.0.0.0:9100"
       node_exporter_web_telemetry_path: "/metrics"
